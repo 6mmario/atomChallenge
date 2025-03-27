@@ -5,20 +5,23 @@ import { loginService, registerService } from '../services/authService';
 
 const router = Router();
 
-router.post('/users/:mail', async (req: Request, res: Response) => {
+//TODO: login
+router.post('/users/:email', async (req: Request, res: Response) => {
   try {
 
-    const { mail } = req.params;
+    const { email } = req.params;
+
+    console.log(email)
 
     // Llamar al servicio de login
-    const result: GenericResponse<EmailModel> = await loginService(mail);
+    const result: GenericResponse<EmailModel> = await loginService(email);
 
     // Determinar el código de estado basado en el mensaje
     switch (result.mensaje) {
       case 'Se requiere un correo electrónico':
         return res.status(400).json(result);
-      case 'Credenciales incorrectas':
-        return res.status(401).json(result);
+      case 'No existe correo':
+        return res.status(404).json(result);
       case 'Login exitoso':
         return res.status(200).json(result);
       default:
@@ -36,11 +39,12 @@ router.post('/users/:mail', async (req: Request, res: Response) => {
   }
 });
 
-// Ruta POST /register
+//TODO: Registrar un nuevo usuario
 router.post('/users', async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const { mail } = req.body;
-    const result = await registerService(mail);
+    const { email } = req.body;
+    console.log(email)
+    const result = await registerService(email);
 
     // Determinamos el status HTTP según el mensaje devuelto
     if (result.mensaje === 'Se requiere un correo electrónico') {

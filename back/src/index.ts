@@ -3,6 +3,8 @@ import morgan from 'morgan';
 import { authRouter } from "./routes/auth";
 import dotenv from 'dotenv';
 import { tareas } from './routes/task';
+import cors from 'cors';
+
 dotenv.config(); // Carga las variables de entorno
 
 const app = express();
@@ -10,6 +12,9 @@ const PORT = process.env.PORT || 3000;
 
 console.log("Port: " + PORT);
 
+app.use(cors({
+  origin: 'http://localhost:4200'
+}));
 // Middlewares
 app.use(express.json());       // Para leer JSON
 app.use(morgan('dev'));        // Para visualizar requests

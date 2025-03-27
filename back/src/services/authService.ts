@@ -20,7 +20,7 @@ export async function loginService(mail: string): Promise<GenericResponse<EmailM
     // Verificar si el usuario existe
     if (snapshot.empty) {
         return {
-            mensaje: 'Credenciales incorrectas',
+            mensaje: 'No existe correo',
             detalle: null,
         };
     }

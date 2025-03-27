@@ -1,0 +1,12 @@
+<h2 mat-dialog-title>Registrar</h2>
+<mat-dialog-content>
+  <p>{{ mensaje }}</p>
+  <mat-form-field appearance="fill">
+    <mat-label>Correo electrónico</mat-label>
+    <input matInput type="email" [(ngModel)]="data.email" />
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">No Gracias</button>
+  <button mat-button [mat-dialog-close]="data.email" cdkFocusInitial>Registrar</button>
+</mat-dialog-actions>
