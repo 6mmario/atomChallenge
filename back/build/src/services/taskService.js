@@ -1,39 +1,42 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.getTasks = getTasks;
+exports.addTask = addTask;
+exports.updateTask = updateTask;
+exports.deleteTask = deleteTask;
 // src/services/taskService.ts
-import { db } from './../config/firebase';
-import { GenericResponse } from './../models/authResponse';
-import { TaskModel } from './../models/TaskModel';
-
-export async function getTasks(email: string): Promise<GenericResponse<TaskModel>> {
+const firebase_1 = require("./../config/firebase");
+async function getTasks(email) {
     try {
-        const snapshot = await db.collection('tasks').where('email', '==', email).get();
-        const tasks: TaskModel[] = [];
+        const snapshot = await firebase_1.db.collection('tasks').where('email', '==', email).get();
+        const tasks = [];
         snapshot.forEach(doc => {
-            tasks.push({ id: doc.id, ...doc.data() } as TaskModel);
+            tasks.push({ id: doc.id, ...doc.data() });
         });
         return {
             mensaje: 'Tareas obtenidas exitosamente',
             detalle: tasks.length ? tasks : null,
             status: 200
         };
-    } catch (error) {
+    }
+    catch (error) {
         throw new Error('Error al obtener las tareas: ' + error);
     }
 }
-
-export async function addTask(task: TaskModel): Promise<GenericResponse<{ id: string }>> {
+async function addTask(task) {
     try {
         // Asignar fecha de creación si no se proporciona
         if (!task.createdAt) {
             task.createdAt = new Date().toISOString();
         }
-
-        const newDoc = await db.collection('tasks').add(task);
+        const newDoc = await firebase_1.db.collection('tasks').add(task);
         return {
             mensaje: 'Tarea agregada exitosamente',
             detalle: [{ id: newDoc.id }],
             status: 201
         };
-    } catch (error) {
+    }
+    catch (error) {
         return {
             mensaje: 'Tarea agregada exitosamente',
             detalle: [],
@@ -41,11 +44,10 @@ export async function addTask(task: TaskModel): Promise<GenericResponse<{ id: st
         };
     }
 }
-
-export async function updateTask(taskId: string, taskData: Partial<TaskModel>): Promise<GenericResponse<TaskModel>> {
+async function updateTask(taskId, taskData) {
     try {
-        await db.collection('tasks').doc(taskId).update(taskData);
-        const doc = await db.collection('tasks').doc(taskId).get();
+        await firebase_1.db.collection('tasks').doc(taskId).update(taskData);
+        const doc = await firebase_1.db.collection('tasks').doc(taskId).get();
         if (!doc.exists) {
             return {
                 mensaje: 'Tarea no encontrada',
@@ -53,13 +55,14 @@ export async function updateTask(taskId: string, taskData: Partial<TaskModel>): 
                 status: 404
             };
         }
-        const updatedTask: TaskModel = { id: doc.id, ...doc.data() } as TaskModel;
+        const updatedTask = { id: doc.id, ...doc.data() };
         return {
             mensaje: 'Tarea actualizada exitosamente',
             detalle: [updatedTask],
             status: 200
         };
-    } catch (error) {
+    }
+    catch (error) {
         return {
             mensaje: 'Error al actualizar la tarea',
             detalle: [],
@@ -67,16 +70,16 @@ export async function updateTask(taskId: string, taskData: Partial<TaskModel>): 
         };
     }
 }
-
-export async function deleteTask(taskId: string): Promise<GenericResponse<null>> {
+async function deleteTask(taskId) {
     try {
-        await db.collection('tasks').doc(taskId).delete();
+        await firebase_1.db.collection('tasks').doc(taskId).delete();
         return {
             mensaje: 'Tarea eliminada exitosamente',
             detalle: null,
             status: 200
         };
-    } catch (error) {
+    }
+    catch (error) {
         return {
             mensaje: 'Error al eliminar la tarea',
             detalle: null,

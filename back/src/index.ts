@@ -4,7 +4,6 @@ import { authRouter } from "./routes/auth";
 import dotenv from 'dotenv';
 import { tareas } from './routes/task';
 import cors from 'cors';
-
 dotenv.config(); // Carga las variables de entorno
 
 const app = express();

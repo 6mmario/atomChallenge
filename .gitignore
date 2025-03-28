@@ -3,3 +3,10 @@ back/.env
 back/firebase-key.json
 
 .DS_Storefrontend/
+backend/functions/lib
+backend/functions/src/firebase-key.json
+backend/.DS_Store
+backend/functions/.DS_Store
+backend/functions/src/.DS_Store
+backend/functions/src/firebase-key.json
+backend/functions/lib/firebase-key.json

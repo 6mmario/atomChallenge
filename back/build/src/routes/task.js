@@ -1,19 +1,18 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.tareas = void 0;
 // src/routes/task.ts
-import { Router, Request, Response, NextFunction } from 'express';
-import { getTasks, addTask, updateTask, deleteTask } from './../services/taskService';
-import { GenericResponse } from "../models/authResponse";
-import { TaskModel } from '../models/TaskModel';
-
-const router = Router();
-
+const express_1 = require("express");
+const taskService_1 = require("./../services/taskService");
+const router = (0, express_1.Router)();
 //TODO: GET lista todas las tareas de un email.
-router.get('/tasks', async (req: Request, res: Response, _next: NextFunction) => {
+router.get('/tasks', async (req, res, _next) => {
     try {
-        const email = req.headers['email'] as string;
-
-        const result: GenericResponse<TaskModel> = await getTasks(email);
+        const email = req.headers['email'];
+        const result = await (0, taskService_1.getTasks)(email);
         res.status(result.status).json(result);
-    } catch (error) {
+    }
+    catch (error) {
         console.error('Error al obtener tareas:', error);
         res.status(500).json({
             mensaje: 'Error interno del servidor',
@@ -21,49 +20,48 @@ router.get('/tasks', async (req: Request, res: Response, _next: NextFunction) =>
         });
     }
 });
-
 //TODO: POST registra nueva tarea por email.
-router.post('/tasks', async (req: Request, res: Response, _next: NextFunction) => {
+router.post('/tasks', async (req, res, _next) => {
     try {
-        const taskData: TaskModel = req.body;
+        const taskData = req.body;
         // Se requieren título, descripción y el email asociado
-        const result = await addTask(taskData);
+        const result = await (0, taskService_1.addTask)(taskData);
         res.status(result.status).json(result);
-    } catch (error) {
+    }
+    catch (error) {
         res.status(500).json({
             mensaje: 'Error interno del servidor',
             detalle: null
         });
     }
 });
-
 //TODO: PUT actualiza datos de una tarea existente
-router.put('/tasks/:taskId', async (req: Request, res: Response, _next: NextFunction) => {
+router.put('/tasks/:taskId', async (req, res, _next) => {
     try {
         const { taskId } = req.params;
-        const taskData: Partial<TaskModel> = req.body;
-        const result = await updateTask(taskId, taskData);
+        const taskData = req.body;
+        const result = await (0, taskService_1.updateTask)(taskId, taskData);
         res.status(result.status).json(result);
-    } catch (error) {
+    }
+    catch (error) {
         res.status(500).json({
             mensaje: 'Error interno del servidor',
             detalle: null
         });
     }
 });
-
 //TODO: DELETE elimina una tarea existente
-router.delete('/tasks/:taskId', async (req: Request, res: Response) => {
+router.delete('/tasks/:taskId', async (req, res) => {
     try {
         const { taskId } = req.params;
-        const result = await deleteTask(taskId);
+        const result = await (0, taskService_1.deleteTask)(taskId);
         res.status(result.status).json(result);
-    } catch (error) {
+    }
+    catch (error) {
         res.status(500).json({
             mensaje: 'Error interno del servidor',
             detalle: null
         });
     }
 });
-
-export const tareas = router;
+exports.tareas = router;

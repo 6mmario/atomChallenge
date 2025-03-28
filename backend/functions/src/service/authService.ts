@@ -16,7 +16,6 @@ export async function loginService(mail: string): Promise<GenericResponse<EmailM
     // Consulta a Firestore
     const snapshot = await db.collection('contacts')
         .where('email', '==', mail)
-
         .get();
 
     // Verificar si el usuario existe
