@@ -10,3 +10,10 @@ backend/functions/.DS_Store
 backend/functions/src/.DS_Store
 backend/functions/src/firebase-key.json
 backend/functions/lib/firebase-key.json
+backend/functions/src/firebase-key.json
+backend/functions/lib/firebase-key.json
+
+backend_v2/functions/src/firebase-key.json
+backend_v2/functions/lib/firebase-key.json
+backend_v2/functions/src/firebase-key.json
+backend_v2/functions/lib/firebase-key.json
