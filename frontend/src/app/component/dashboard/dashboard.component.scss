@@ -1,0 +1,72 @@
+@media (forced-colors: active) {
+  body {
+    forced-color-adjust: none;
+    background: Canvas;
+    color: CanvasText;
+  }
+}
+
+.formulario {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    max-width: 500px;
+}
+  
+.lista-tareas {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+  
+.tarea {
+    padding: 1rem;
+    transition: box-shadow 0.3s ease;
+}
+  
+.tarea:hover {
+    box-shadow: 0 0 10px rgba(0,0,0,0.15);
+}
+
+.dashboard-layout {
+  display: flex;
+  gap: 2rem;
+  margin-top: 2rem;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.form-panel {
+  flex: 1 1 300px;
+  max-width: 400px;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.task-panel {
+  flex: 2 1 600px;
+  padding-right: 1rem;
+}
+
+.tarjetas-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+  padding: 0.5rem;
+}
+
+.header {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 1rem;
+  padding-top: 1rem;
+  padding-right: 1rem;
+}
+
+h2 {
+  margin-top: 0.5rem;
+  margin-bottom: 1.5rem;
+  padding-left: 1rem;
+}

@@ -42,3 +42,11 @@ body { margin: 0; font-family: Inter, "Helvetica Neue", sans-serif; }
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+@media (forced-colors: active) {
+  body {
+    forced-color-adjust: none;
+    background: Canvas;
+    color: CanvasText;
+  }
+}

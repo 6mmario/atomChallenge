@@ -1,0 +1,24 @@
+<h2 mat-dialog-title>{{ tipo === 1 ? 'Editar Tarea' : 'Confirmar Eliminación' }}</h2>
+
+<mat-dialog-content>
+  <form *ngIf="tipo === 1" class="formulario">
+    <mat-form-field appearance="fill">
+      <mat-label>Título</mat-label>
+      <input matInput [(ngModel)]="task.title" name="title" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Descripción</mat-label>
+      <textarea matInput [(ngModel)]="task.description" name="description"></textarea>
+    </mat-form-field>
+  </form>
+
+  <p *ngIf="tipo === 2">¿Estás seguro que deseas eliminar esta tarea?</p>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancelar</button>
+  <button mat-button color="primary" (click)="guardar()">
+    {{ tipo === 1 ? 'Guardar' : 'Eliminar' }}
+  </button>
+</mat-dialog-actions>

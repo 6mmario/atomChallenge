@@ -1,1 +1,56 @@
-<p>dashboard works!</p>
+<div class="header">
+  <button mat-stroked-button color="accent" (click)="logout()" style="margin-bottom: 1rem;">
+    <mat-icon>logout</mat-icon> Cerrar sesión
+  </button>
+</div>
+
+<h2 style="padding-top: 1rem; margin-bottom: 1.5rem;">📋 Gestor de Tareas</h2>
+
+<div class="dashboard-layout">
+  <!-- Panel izquierdo: Formulario -->
+  <div class="form-panel">
+    <form class="formulario" (submit)="addTask(); $event.preventDefault()">
+      <mat-form-field appearance="fill">
+        <mat-label>Título</mat-label>
+        <input matInput [(ngModel)]="newTask.title" name="title" required />
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Descripción</mat-label>
+        <textarea matInput [(ngModel)]="newTask.description" name="description" required></textarea>
+      </mat-form-field>
+
+      <button mat-raised-button color="primary" type="submit">
+        <mat-icon>add</mat-icon> Agregar tarea
+      </button>
+    </form>
+  </div>
+
+  <!-- Panel derecho: Tarjetas -->
+  <div class="task-panel">
+    <div class="tarjetas-grid">
+      <mat-card *ngFor="let task of tasks" class="tarea" [@fadeIn]>
+        <mat-card-header>
+          <mat-checkbox [checked]="task.completed" (change)="toggleCompletion(task, $event.checked)">
+            {{ task.title }}
+          </mat-checkbox>
+        </mat-card-header>
+
+        <mat-card-content>
+          <p>{{ task.description }}</p>
+          <p><strong>Fecha:</strong> {{ task.createdAt | date:'short' }}</p>
+          <p><strong>Estado:</strong> {{ task.completed ? '✅ Completado' : '⏳ Pendiente' }}</p>
+        </mat-card-content>
+
+        <mat-card-actions align="end">
+          <button mat-icon-button color="accent" (click)="editTask(task, 1)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" (click)="deleteTask(task, 2)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>
+</div>

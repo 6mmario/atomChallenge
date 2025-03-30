@@ -15,6 +15,6 @@ export class LoginService {
 
   login(mail: string): Observable<GenericResponse<EmailModel>> {
     const url = `${this.baseUrl}users/${(mail)}`;
-    return this.http.post<GenericResponse<EmailModel>>(url, {});
+    return this.http.get<GenericResponse<EmailModel>>(url, {});
   }
 }

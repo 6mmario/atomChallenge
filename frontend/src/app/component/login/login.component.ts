@@ -13,6 +13,7 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { ModalMensajeComponent } from '../modal-mensaje/modal-mensaje.component';
 import { UserService } from '../../service/user.service';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -37,7 +38,8 @@ export class LoginComponent {
     private userService: UserService,
     private spinner: NgxSpinnerService,
     private dialog: MatDialog,
-    private snackBar: MatSnackBar) { }
+    private snackBar: MatSnackBar,
+    private router: Router) { }
 
   onLogin() {
     if (!this.email || this.email.trim() === '') {
@@ -55,6 +57,9 @@ export class LoginComponent {
         this.spinner.hide();
 
         console.log(data)
+        this.router.navigate(['/dashboards'], {
+          queryParams: { email: this.email }
+        });
       },
       error: (error) => {
         console.error('Error al hacer login:', error);
