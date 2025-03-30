@@ -7,14 +7,12 @@ import { EmailModel } from "./models/EmailModel";
 import { loginService, registerService } from "./service/authService";
 import { TaskModel } from "./models/TaskModel";
 import { addTask, deleteTask, getTasks, updateTask } from "./service/taskService";
-//import {loginService, registerService} from "./service/authService";
-//import {GenericResponse} from "./models/authResponse";
-//import {EmailModel} from "./models/EmailModel";
-//import {TaskModel} from "./models/TaskModel";
-//import {addTask, deleteTask, getTasks, updateTask} from "./service/taskService";
+import cors from "cors";
 
 
 const app = express();
+
+app.use(cors({ origin: "https://tasks-atom.netlify.app" }));
 
 app.get("/", async (_req: Request, res: Response) => {
     res.status(200).json({ message: "OK" });
