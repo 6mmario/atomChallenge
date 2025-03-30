@@ -3,6 +3,6 @@ export interface TaskModel {
     title: string;
     description: string;
     createdAt?: string;
-    completed?: string;
+    completed: boolean;
     email: string; // Correo asociado al registro
   }

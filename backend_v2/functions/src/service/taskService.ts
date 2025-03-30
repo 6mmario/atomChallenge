@@ -48,6 +48,14 @@ export async function addTask(task: TaskModel): Promise<GenericResponse<{ id: st
 // TODO: Realiza la logica de actualizar tareas
 export async function updateTask(taskId: string, taskData: Partial<TaskModel>): Promise<GenericResponse<TaskModel>> {
   try {
+
+    console.log("🔥 typeof taskData:", typeof taskData);
+    console.log("🔥 taskData instanceof Object:", taskData instanceof Object);
+    console.log("🔥 taskData:", taskData);
+
+    if (typeof taskData === 'string') {
+      taskData = JSON.parse(taskData);
+    }
     await db.collection("tasks").doc(taskId).update(taskData);
     const doc = await db.collection("tasks").doc(taskId).get();
     if (!doc.exists) {
@@ -64,6 +72,7 @@ export async function updateTask(taskId: string, taskData: Partial<TaskModel>): 
       status: 200,
     };
   } catch (error) {
+    console.error("🔥 Error al actualizar tarea:", error);
     return {
       mensaje: "Error al actualizar la tarea",
       detalle: [],
